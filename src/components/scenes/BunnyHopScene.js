@@ -8,6 +8,7 @@ export default class BunnyHopScene extends Phaser.Scene {
     platforms;
     player;
     cursors;
+    keyWASD;
     stars;
     bombs;
     gameOver = false;
@@ -65,7 +66,9 @@ export default class BunnyHopScene extends Phaser.Scene {
 
         this.physics.add.collider(this.player, this.platforms);
 
+        //keyboard
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.keyWASD = this.input.keyboard.addKeys('W,S,A,D');
 
         //stars
         this.stars = this.physics.add.group({
@@ -92,17 +95,17 @@ export default class BunnyHopScene extends Phaser.Scene {
     }
 
     update() {
-        if(this.cursors.left.isDown) {
+        if(this.cursors.left.isDown || this.keyWASD.A.isDown) {
             this.player.setVelocityX(-160);
             this.player.anims.play('left', true);
-        }else if(this.cursors.right.isDown) {
+        }else if(this.cursors.right.isDown || this.keyWASD.D.isDown) {
             this.player.setVelocityX(160);
             this.player.anims.play('right', true);
         }else {
             this.player.setVelocityX(0);
             this.player.anims.play('turn');
         }
-        if(this.cursors.up.isDown && this.player.body.touching.down) {
+        if((this.cursors.up.isDown || this.keyWASD.W.isDown) && this.player.body.touching.down) {
             this.player.setVelocityY(-430);
         }
     }
