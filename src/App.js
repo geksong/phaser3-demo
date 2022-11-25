@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 
+import BunnyHop from './components/BunnyHop';
+
 function App() {
   return (
     <div className="App">
